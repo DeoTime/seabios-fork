@@ -12,7 +12,7 @@ menu "VGA ROM"
 
         config VGA_STANDARD_VGA
             depends on QEMU
-            bool "QEMU/Bochs Original IBM 256K VGA"
+            bool "Generic Original IBM 256K VGA"
             select VGA_STDVGA_PORTS
             help
                 Build basic VGA BIOS support (pre Super-VGA) for use
@@ -20,29 +20,29 @@ menu "VGA ROM"
 
         config VGA_CIRRUS
             depends on QEMU
-            bool "QEMU/Bochs Cirrus SVGA"
+            bool "Generic Cirrus SVGA"
             select VGA_STDVGA_PORTS
             help
-                Build support for Cirrus VGA emulation found on QEMU
-                and Bochs emulators.  This is for emulators; it is not
+                Build support for Cirrus VGA-compatible hardware.  This is
+                for compatible display adapters; it is not
                 intended for use on real Cirrus hardware.
 
         config VGA_ATI
             depends on QEMU
-            bool "QEMU ATI SVGA"
+            bool "Generic ATI SVGA"
             select VGA_STDVGA_PORTS
             help
-                Build support for ATI VGA emulation found on QEMU
-                and emulators.  This is for emulators; it is not
+                Build support for ATI VGA-compatible hardware.  This is for
+                compatible display adapters; it is not
                 intended for use on real ATI hardware.
 
         config VGA_BOCHS
             depends on QEMU
-            bool "QEMU/Bochs VBE SVGA"
+            bool "Generic VBE SVGA"
             select VGA_STDVGA_PORTS
             help
-                Build support for Bochs DISPI interface (a custom VBE
-                protocol) found on QEMU and Bochs emulators.
+                Build support for a DISPI-style interface (a custom VBE
+                protocol) found on compatible display adapters.
 
         config VGA_GEODEGX2
             bool "GeodeGX2"
@@ -66,25 +66,24 @@ menu "VGA ROM"
 
         config DISPLAY_BOCHS
             depends on QEMU
-            bool "qemu bochs-display support"
+            bool "linear framebuffer display support"
             select VGA_EMULATE_TEXT
             help
-                Build support for the qemu bochs-display device, which
-                is basically qemu stdvga without the legacy vga
+                Build support for a linear framebuffer display device, which
+                is basically standard VGA without the legacy vga
                 emulation, supporting only 16+32 bpp VESA video modes
                 in a linear framebuffer.  So this uses cbvga text mode
                 emulation.
 
-                The bochs-display device is available in qemu
-                v3.0+. The vgabios works with the qemu stdvga too (use
-                "qemu -device VGA,romfile=/path/to/vgabios.bin")".
+                The display device is available on compatible platforms.
+                The vgabios also works with standard VGA-compatible devices.
 
         config VGA_RAMFB
             depends on QEMU
-            bool "qemu ramfb"
+            bool "RAM framebuffer"
             select VGA_EMULATE_TEXT
             help
-                qemu ram framebuffer support (-device ramfb).
+                RAM framebuffer support.
 
     endchoice
 
@@ -94,16 +93,16 @@ menu "VGA ROM"
         default VGA_BOCHS_STDVGA
 
         config VGA_BOCHS_STDVGA
-            bool "qemu stdvga / bochs svga"
+            bool "standard VGA / SVGA"
 
         config VGA_BOCHS_VMWARE
-            bool "qemu vmware svga"
+            bool "VMware SVGA"
 
         config VGA_BOCHS_QXL
-            bool "qemu qxl vga"
+            bool "QXL VGA"
 
         config VGA_BOCHS_VIRTIO
-            bool "qemu virtio vga"
+            bool "Virtio VGA"
 
     endchoice
 
